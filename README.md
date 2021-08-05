@@ -1,10 +1,10 @@
-# Sora iOS SDK
+# [Unofficial] Sora iOS SDK
 
 [![libwebrtc](https://img.shields.io/badge/libwebrtc-m91.4472-blue.svg)](https://chromium.googlesource.com/external/webrtc/+/branch-heads/4472)
 [![GitHub tag](https://img.shields.io/github/tag/shiguredo/sora-ios-sdk.svg)](https://github.com/shiguredo/sora-ios-sdk)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Sora iOS SDK は [WebRTC SFU Sora](https://sora.shiguredo.jp) の iOS クライアントアプリケーションを開発するためのライブラリです。
+Sora iOS SDK は [WebRTC SFU Sora](https://sora.shiguredo.jp) の iOS クライアントアプリケーションを開発するための 非公式な ライブラリです。
 
 ## About Shiguredo's open source software
 
