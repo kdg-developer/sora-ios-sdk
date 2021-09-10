@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Sora"
-  s.version      = "2021.1.1"
+  s.version      = "2021.1.2"
   s.summary      = "Sora iOS SDK"
   s.description  = <<-DESC
                    A library to develop Sora client applications.
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/shiguredo/sora-ios-sdk"
   s.license      = { :type => "Apache License, Version 2.0" }
   s.authors      = { "Shiguredo Inc." => "sora@shiguredo.jp" }
-  s.platform     = :ios, "10.0"
+  s.platform     = :ios, "11.0"
   s.source       = {
       :git => "https://github.com/soudegesu/sora-ios-sdk.git",
       :tag => s.version
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source_files  = "Sora/**/*.swift"
   s.resources = ['Sora/info.json', 'Sora/*.xib']
   s.prepare_command = 'sh Sora/info.sh'
-  s.dependency "WebRTC", '92.4515.9.1.1'
+  s.dependency "WebRTC", '92.4515.9.1.4'
   s.dependency "Starscream", "3.1.1"
   s.pod_target_xcconfig = {
     'ARCHS' => 'arm64',
