@@ -34,20 +34,17 @@ class WrapperVideoEncoderFactory: NSObject, RTCVideoEncoderFactory {
 
 class NativePeerChannelFactory {
     
-    static var `default`: NativePeerChannelFactory = NativePeerChannelFactory()
-    
     var nativeFactory: RTCPeerConnectionFactory
     
-    init() {
+    init(_ audioModule: RTCAudioDeviceModule) {
         Logger.debug(type: .peerChannel, message: "create native peer channel factory")
-        
+              
         // 映像コーデックのエンコーダーとデコーダーを用意する
         let encoder = WrapperVideoEncoderFactory.shared
         let decoder = RTCDefaultVideoDecoderFactory()
-        nativeFactory =
-            RTCPeerConnectionFactory(encoderFactory: encoder,
-                                     decoderFactory: decoder)
-        
+        nativeFactory = RTCPeerConnectionFactory.init(encoderFactory: encoder,
+                                    decoderFactory: decoder,
+                                    audioDeviceModule: audioModule)
         for info in encoder.supportedCodecs() {
             Logger.debug(type: .peerChannel,
                          message: "supported video encoder: \(info.name) \(info.parameters)")

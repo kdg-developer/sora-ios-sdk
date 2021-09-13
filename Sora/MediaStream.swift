@@ -116,6 +116,12 @@ public protocol MediaStream: class {
      */
     func send(videoFrame: VideoFrame?)
     
+  
+    /**
+     音声をサーバに送信します
+    */
+    func sendAudio(_ buffer: CMSampleBuffer?)
+  
     // MARK: 終了処理
     
     /**
@@ -184,6 +190,8 @@ class BasicMediaStream: MediaStream {
             videoTrack.add(adapter)
         }
     }
+  
+    weak var audioModule: RTCAudioDeviceModule?
     
     var nativeStream: RTCMediaStream
     
@@ -280,5 +288,11 @@ class BasicMediaStream: MediaStream {
             
         }
     }
-    
+  
+  func sendAudio(_ buffer: CMSampleBuffer?) {
+    guard let buffer = buffer else {
+      return
+    }
+    audioModule?.deliverRecordedData(buffer)
+  }
 }
