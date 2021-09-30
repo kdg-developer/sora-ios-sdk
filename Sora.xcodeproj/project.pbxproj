@@ -49,7 +49,6 @@
 		91FA6F211D93CA9800D38DB4 /* VideoFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FA6F201D93CA9800D38DB4 /* VideoFrame.swift */; };
 		91FD95751DCA06F700047BA9 /* RTC+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD95741DCA06F700047BA9 /* RTC+Description.swift */; };
 		C5D3C7421F7CEB18004660F5 /* VideoCapturerDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C7411F7CEB18004660F5 /* VideoCapturerDevice.swift */; };
-		DE96FFC5B0180D8492819632 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D640841E3131653FFBC12E1D /* Pods_Sora.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,9 +119,6 @@
 		91FA6F201D93CA9800D38DB4 /* VideoFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFrame.swift; sourceTree = "<group>"; };
 		91FD95741DCA06F700047BA9 /* RTC+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RTC+Description.swift"; sourceTree = "<group>"; };
 		C5D3C7411F7CEB18004660F5 /* VideoCapturerDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapturerDevice.swift; sourceTree = "<group>"; };
-		D640841E3131653FFBC12E1D /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8804300AB6AEF5A368B2E60 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
-		F67691BCCE4CCC617FC21CC7 /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +126,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE96FFC5B0180D8492819632 /* Pods_Sora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,19 +140,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7951EAB866FD7CC60076894C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F67691BCCE4CCC617FC21CC7 /* Pods-Sora.debug.xcconfig */,
-				E8804300AB6AEF5A368B2E60 /* Pods-Sora.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		9182018E1D58667600178E2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D640841E3131653FFBC12E1D /* Pods_Sora.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -178,7 +163,6 @@
 				91C7B0971D54636A006F5FA2 /* SoraTests */,
 				9182018E1D58667600178E2B /* Frameworks */,
 				91C7B08A1D54636A006F5FA2 /* Products */,
-				7951EAB866FD7CC60076894C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,7 +249,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91C7B09D1D54636A006F5FA2 /* Build configuration list for PBXNativeTarget "Sora" */;
 			buildPhases = (
-				7BE3D5B4CF1061520A52B4A2 /* [CP] Check Pods Manifest.lock */,
 				91C7B0841D54636A006F5FA2 /* Sources */,
 				91C7B0851D54636A006F5FA2 /* Frameworks */,
 				91C7B0861D54636A006F5FA2 /* Headers */,
@@ -311,8 +294,9 @@
 				TargetAttributes = {
 					91C7B0881D54636A006F5FA2 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = DQ232CBKHS;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					91C7B0921D54636A006F5FA2 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -357,31 +341,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		7BE3D5B4CF1061520A52B4A2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sora-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		91C7B0841D54636A006F5FA2 /* Sources */ = {
@@ -570,14 +529,13 @@
 		};
 		91C7B09E1D54636A006F5FA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F67691BCCE4CCC617FC21CC7 /* Pods-Sora.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DQ232CBKHS;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -594,7 +552,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
@@ -605,14 +562,13 @@
 		};
 		91C7B09F1D54636A006F5FA2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8804300AB6AEF5A368B2E60 /* Pods-Sora.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DQ232CBKHS;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -629,7 +585,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
