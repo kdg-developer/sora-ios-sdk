@@ -48,8 +48,8 @@
 		91CDC1ED23166A5300C3A31E /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CDC1EC23166A5200C3A31E /* DeviceInfo.swift */; };
 		91FA6F211D93CA9800D38DB4 /* VideoFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FA6F201D93CA9800D38DB4 /* VideoFrame.swift */; };
 		91FD95751DCA06F700047BA9 /* RTC+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD95741DCA06F700047BA9 /* RTC+Description.swift */; };
-		B9778A4200B28EBDF5BF2012 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C037AF8FD147968B833E12F2 /* Pods_Sora.framework */; };
 		C5D3C7421F7CEB18004660F5 /* VideoCapturerDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C7411F7CEB18004660F5 /* VideoCapturerDevice.swift */; };
+		DE96FFC5B0180D8492819632 /* Pods_Sora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D640841E3131653FFBC12E1D /* Pods_Sora.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,10 +119,10 @@
 		91CDC1EC23166A5200C3A31E /* DeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		91FA6F201D93CA9800D38DB4 /* VideoFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFrame.swift; sourceTree = "<group>"; };
 		91FD95741DCA06F700047BA9 /* RTC+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RTC+Description.swift"; sourceTree = "<group>"; };
-		B8CA96EABBD664399D41F406 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
-		C037AF8FD147968B833E12F2 /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5D3C7411F7CEB18004660F5 /* VideoCapturerDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapturerDevice.swift; sourceTree = "<group>"; };
-		D40976B81A8C183E371F7BFA /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
+		D640841E3131653FFBC12E1D /* Pods_Sora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8804300AB6AEF5A368B2E60 /* Pods-Sora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.release.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.release.xcconfig"; sourceTree = "<group>"; };
+		F67691BCCE4CCC617FC21CC7 /* Pods-Sora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sora.debug.xcconfig"; path = "Target Support Files/Pods-Sora/Pods-Sora.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9778A4200B28EBDF5BF2012 /* Pods_Sora.framework in Frameworks */,
+				DE96FFC5B0180D8492819632 /* Pods_Sora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,11 +145,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		770435980B0CF9B7D750D2AE /* Pods */ = {
+		7951EAB866FD7CC60076894C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D40976B81A8C183E371F7BFA /* Pods-Sora.debug.xcconfig */,
-				B8CA96EABBD664399D41F406 /* Pods-Sora.release.xcconfig */,
+				F67691BCCE4CCC617FC21CC7 /* Pods-Sora.debug.xcconfig */,
+				E8804300AB6AEF5A368B2E60 /* Pods-Sora.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -157,7 +157,7 @@
 		9182018E1D58667600178E2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C037AF8FD147968B833E12F2 /* Pods_Sora.framework */,
+				D640841E3131653FFBC12E1D /* Pods_Sora.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -178,7 +178,7 @@
 				91C7B0971D54636A006F5FA2 /* SoraTests */,
 				9182018E1D58667600178E2B /* Frameworks */,
 				91C7B08A1D54636A006F5FA2 /* Products */,
-				770435980B0CF9B7D750D2AE /* Pods */,
+				7951EAB866FD7CC60076894C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,7 +265,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91C7B09D1D54636A006F5FA2 /* Build configuration list for PBXNativeTarget "Sora" */;
 			buildPhases = (
-				24681A56AF64F9AD0B75681B /* [CP] Check Pods Manifest.lock */,
+				7BE3D5B4CF1061520A52B4A2 /* [CP] Check Pods Manifest.lock */,
 				91C7B0841D54636A006F5FA2 /* Sources */,
 				91C7B0851D54636A006F5FA2 /* Frameworks */,
 				91C7B0861D54636A006F5FA2 /* Headers */,
@@ -306,7 +306,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Shiguredo Inc.";
 				TargetAttributes = {
 					91C7B0881D54636A006F5FA2 = {
@@ -359,7 +359,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		24681A56AF64F9AD0B75681B /* [CP] Check Pods Manifest.lock */ = {
+		7BE3D5B4CF1061520A52B4A2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -472,7 +472,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -536,7 +535,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -572,7 +570,7 @@
 		};
 		91C7B09E1D54636A006F5FA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D40976B81A8C183E371F7BFA /* Pods-Sora.debug.xcconfig */;
+			baseConfigurationReference = F67691BCCE4CCC617FC21CC7 /* Pods-Sora.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -607,7 +605,7 @@
 		};
 		91C7B09F1D54636A006F5FA2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8CA96EABBD664399D41F406 /* Pods-Sora.release.xcconfig */;
+			baseConfigurationReference = E8804300AB6AEF5A368B2E60 /* Pods-Sora.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
