@@ -204,7 +204,7 @@ public final class WebSocketChannelHandlers {
  
  WebSocket チャネルはシグナリングチャネル `SignalingChannel` により使用されます。
  */
-public protocol WebSocketChannel: AnyObject {
+public protocol WebSocketChannel: class {
     
     // MARK: - プロパティ
     
@@ -273,8 +273,6 @@ class BasicWebSocketChannel: WebSocketChannel {
 
     var context: BasicWebSocketChannelContext!
     
-    static var useStarscreamCustomEngine: Bool = true
-
     required init(url: URL) {
         self.url = url
         context = BasicWebSocketChannelContext(channel: self)
@@ -297,33 +295,6 @@ class BasicWebSocketChannel: WebSocketChannel {
 
 class BasicWebSocketChannelContext: NSObject, WebSocketDelegate {
     
-    func didReceive(event: WebSocketEvent, client socket: WebSocket) {
-        switch event {
-        case .connected(_):
-            onOpen(socket: socket)
-        case .disconnected(let reason, let code):
-            let error = SoraError.webSocketClosed(statusCode: WebSocketStatusCode.init(rawValue: Int(code)),
-                                                  reason: reason)
-            onClose(socket: socket, error: error)
-        case .text(let text):
-            onMessage(socket: socket, text: text)
-        case .binary(let data):
-            onData(socket: socket, data: data)
-        case .ping(_):
-            break
-        case .pong(let data):
-            onPong(socket: socket, data: data)
-        case .viabilityChanged(_):
-            break
-        case .reconnectSuggested(_):
-            break
-        case .cancelled:
-            break
-        case .error(let error):
-            disconnect(error: error)
-        }
-    }
-    
     weak var channel: BasicWebSocketChannel!
     var nativeChannel: WebSocket
     
@@ -338,8 +309,7 @@ class BasicWebSocketChannelContext: NSObject, WebSocketDelegate {
 
     init(channel: BasicWebSocketChannel) {
         self.channel = channel
-        nativeChannel = WebSocket(request: URLRequest(url: channel.url),
-                                  useCustomEngine: BasicWebSocketChannel.useStarscreamCustomEngine)
+        nativeChannel = WebSocket(url: channel.url)
         super.init()
         nativeChannel.delegate = self
     }
@@ -406,7 +376,7 @@ class BasicWebSocketChannelContext: NSObject, WebSocketDelegate {
         channel.handlers.onReceive?(message)
     }
     
-    private func onOpen(socket: WebSocketClient) {
+    func websocketDidConnect(socket: WebSocketClient) {
         Logger.debug(type: .webSocketChannel, message: "connected")
         state = .connected
         if onConnectHandler != nil {
@@ -416,7 +386,7 @@ class BasicWebSocketChannelContext: NSObject, WebSocketDelegate {
         }
     }
     
-    private func onClose(socket: WebSocketClient, error: Error?) {
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         if let error = error {
             Logger.error(type: .webSocketChannel,
                          message: "disconnected => (\(error.localizedDescription))")
@@ -428,22 +398,22 @@ class BasicWebSocketChannelContext: NSObject, WebSocketDelegate {
         }
     }
     
-    private func onMessage(socket: WebSocketClient, text: String) {
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         Logger.debug(type: .webSocketChannel, message: "receive text message => \(text)")
         callMessageHandler(message: .text(text))
     }
     
-    private func onData(socket: WebSocketClient, data: Data) {
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         Logger.debug(type: .webSocketChannel, message: "receive binary message => \(data)")
         callMessageHandler(message: .binary(data))
     }
 
-    private func onPong(socket: WebSocketClient, data: Data?) {
+    func websocketDidReceivePong(socket: WebSocketClient, data: Data?) {
         Logger.debug(type: .webSocketChannel,
                      message: "receive poing payload => \(data?.description ?? "empty")")
         Logger.debug(type: .webSocketChannel, message: "call onPong")
         channel.internalHandlers.onPong?(data)
         channel.handlers.onPong?(data)
     }
-
+    
 }
