@@ -13,7 +13,7 @@ let package = Package(
         .library(name: "WebRTC", targets: ["WebRTC"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/daltoniam/Starscream.git", .exact( "4.0.4")),
+        .package(url: "https://github.com/daltoniam/Starscream.git", .exact( "3.1.1")),
     ],
     targets: [
         .binaryTarget(
