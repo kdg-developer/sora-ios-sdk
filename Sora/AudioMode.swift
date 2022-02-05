@@ -1,5 +1,5 @@
-import Foundation
 import AVFoundation
+import Foundation
 
 /**
  * 音声モード。
@@ -14,7 +14,6 @@ import AVFoundation
  *
  */
 public enum AudioMode {
-
     /**
      * デフォルト。
      * ``AVAudioSession`` の音声モードを ``default`` に変更します。
@@ -43,14 +42,12 @@ public enum AudioMode {
      * - parameter output: 音声出力先
      */
     case voiceChat(output: AudioOutput)
-
 }
 
 /**
  * 音声出力先
  */
 public enum AudioOutput {
-
     /// デフォルト。端末の状態に依存します。
     case `default`
 
@@ -65,5 +62,4 @@ public enum AudioOutput {
             return .speaker
         }
     }
-
 }

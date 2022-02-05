@@ -5,7 +5,6 @@ import WebRTC
  VideoView における、映像ソースの停止時の処理を表します。
  */
 public enum VideoViewConnectionMode {
-
     /// サーバー及びストリームとの接続解除時に描画処理を停止します。
     case auto
 
@@ -14,28 +13,26 @@ public enum VideoViewConnectionMode {
 
     /// サーバー及びストリームと接続が解除されても描画処理を停止しません。
     case manual
-
 }
 
 /**
  VideoRenderer プロトコルのデフォルト実装となる UIView です。
- 
+
  MediaStream.videoRenderer にセットすることで、その MediaStream
  に流れている映像をそのまま画面に表示する事ができます。
- 
+
  ## contentModeの設定
- 
+
  VideoView は contentMode の設定に対応しており、 contentMode
  プロパティに任意の値を設定することで映像のレンダリングのされ方を変更することができます。
- 
+
  - コード上からプログラム的に VideoView を生成した場合、デフォルト値は
  `scaleAspectFit` になります。
  - Storyboard や Interface Builder 経由で VideoView を生成した場合、
  Storyboard や Interface Builder 上で設定した Content Mode の値が使用されます。
- 
+
  */
 public class VideoView: UIView {
-
     // キーウィンドウ外で RTCEAGLVideoView を生成すると次のエラーが発生するため、
     // contentView を Nib ファイルでセットせずに遅延プロパティで初期化する
     // "Failed to bind EAGLDrawable: <CAEAGLLayer: ***> to GL_RENDERBUFFER 1"
@@ -45,12 +42,14 @@ public class VideoView: UIView {
     private lazy var contentView: VideoViewContentView = {
         #if SWIFT_PACKAGE
             guard let topLevel = Bundle.module
-                .loadNibNamed("VideoView", owner: self, options: nil) else {
+                .loadNibNamed("VideoView", owner: self, options: nil)
+            else {
                 fatalError("cannot load VideoView's nib file")
             }
         #else
             guard let topLevel = Bundle(for: VideoView.self)
-                .loadNibNamed("VideoView", owner: self, options: nil) else {
+                .loadNibNamed("VideoView", owner: self, options: nil)
+            else {
                 fatalError("cannot load VideoView's nib file")
             }
         #endif
@@ -65,7 +64,7 @@ public class VideoView: UIView {
 
     /**
      初期化します。
-     
+
      - parameter frame: ビューのサイズ
      */
     override public init(frame: CGRect) {
@@ -77,10 +76,10 @@ public class VideoView: UIView {
 
     /**
      コーダーを使用して初期化します。
-     
+
      - parameter coder: コーダー
      */
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         // init?(coder:) 経由でVideoViewが生成された場合は、
         // Storyboard/Interface Builder経由でViewが生成されているので、
@@ -94,7 +93,7 @@ public class VideoView: UIView {
      */
     override public func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = self.bounds
+        contentView.frame = bounds
     }
 
     // MARK: - 映像の描画
@@ -131,24 +130,24 @@ public class VideoView: UIView {
 
     /**
      現在 VideoView が表示している映像の元々のフレームサイズを返します。
-     
+
      まだ VideoView が映像のフレームを一度も表示していない場合は `nil` を返します。
-     
+
      VideoView はこの映像のフレームサイズを元にして、自身の contentMode
      に従ってフレームを変形させ、映像を画面に表示します。
-     
+
      - 例えば currentVideoFrameSize が VideoView.frame よりも小さく、
      contentMode に `scaleAspectFit` が指定されている場合は、
      contentMode の指定に従って元映像は引き伸ばされて、拡大表示される事になります。
-     
+
      このプロパティを使用することで、例えば元映像が横長の場合は横長なUIにし、
      縦長の場合は縦長なUIにする、といった調整を行うことができます。
-     
+
      注意点として、このプロパティは直前の映像のフレームサイズを返すため、
      既に映像は表示されていない場合でも、最後に表示していた映像フレームをサイズを返します。
      */
     public var currentVideoFrameSize: CGSize? {
-        return contentView.currentVideoFrameSize
+        contentView.currentVideoFrameSize
     }
 
     /**
@@ -185,7 +184,7 @@ public class VideoView: UIView {
      描画の停止中は ``render(videoFrame:)`` が実行されません。
      */
     public func stop() {
-        self.isRendering = false
+        isRendering = false
     }
 
     // MARK: - デバッグモード
@@ -198,14 +197,12 @@ public class VideoView: UIView {
         get { contentView.debugMode }
         set { contentView.debugMode = newValue }
     }
-
 }
 
 // MARK: - VideoRenderer
 
 /// :nodoc:
 extension VideoView: VideoRenderer {
-
     /// :nodoc:
     public func onChange(size: CGSize) {
         contentView.onVideoFrameSizeUpdated(size)
@@ -254,13 +251,11 @@ extension VideoView: VideoRenderer {
     public func onSwitch(audio: Bool) {
         // 何もしない
     }
-
 }
 
 // MARK: -
 
 class VideoViewContentView: UIView {
-
     @IBOutlet private weak var nativeVideoView: RTCEAGLVideoView!
     @IBOutlet private weak var debugInfoLabel: UILabel!
 
@@ -278,9 +273,9 @@ class VideoViewContentView: UIView {
                 }
 
                 frameCount = 0
-                debugMonitor = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                    DispatchQueue.main.async {
-                        self.updateDebugInfo()
+                debugMonitor = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+                    DispatchQueue.main.async { [weak self] in
+                        self?.updateDebugInfo()
                     }
                 }
             } else {
@@ -323,7 +318,7 @@ class VideoViewContentView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         // 自分自身のサイズが変化したとき、既に描画された video frame size に合わせて再レイアウトを行う
-        if let videoFrameSize = self.currentVideoFrameSize {
+        if let videoFrameSize = currentVideoFrameSize {
             updateNativeVideoViewSize(videoFrameSize)
         }
     }
@@ -361,17 +356,15 @@ class VideoViewContentView: UIView {
     // MARK: - Private Methods
 
     private var allowsRender: Bool {
-        get {
-            // 前述のエラーはキーウィンドウ外での描画でも発生するので、
-            // ビューがキーウィンドウに表示されている場合のみ描画を許可する
-            return !(isHidden || window == nil || !window!.isKeyWindow)
-        }
+        // 前述のエラーはキーウィンドウ外での描画でも発生するので、
+        // ビューがキーウィンドウに表示されている場合のみ描画を許可する
+        !(isHidden || window == nil || !window!.isKeyWindow)
     }
 
     private var renderingContentMode: UIView.ContentMode {
         // superView に指定されている contentMode を優先的に使用する。
         // 万一指定がない場合はデフォルトの aspect fit を使用する。
-        return self.superview?.contentMode ?? .scaleAspectFit
+        superview?.contentMode ?? .scaleAspectFit
     }
 
     private func updateSizeIfNeeded() {
@@ -424,9 +417,8 @@ class VideoViewContentView: UIView {
         debugInfoLabel.text = info
         debugInfoLabel.isHidden = false
 
-        Logger.debug(type: .videoView, message: "\(self.superview ?? self): \(info)")
+        Logger.debug(type: .videoView, message: "\(superview ?? self): \(info)")
     }
-
 }
 
 private func viewSize(for videoFrameSize: CGSize, containerSize: CGSize, mode: UIView.ContentMode) -> CGSize {
@@ -444,7 +436,6 @@ private func viewSize(for videoFrameSize: CGSize, containerSize: CGSize, mode: U
         return ([baseW, baseH].first { size in
             size.width >= containerSize.width && size.height >= containerSize.height
         }) ?? baseW
-    case .scaleAspectFit: fallthrough
     default:
         // デフォルトは aspect fit モード。
         // 特別に対応しているモード以外はすべて aspect fit として扱います。

@@ -5,21 +5,18 @@ import WebRTC
  ストリームの音声のボリュームの定数のリストです。
  */
 public enum MediaStreamAudioVolume {
-
     /// 最大値
     public static let min: Double = 0
 
     /// 最小値
     public static let max: Double = 10
-
 }
 
 /// ストリームのイベントハンドラです。
 public final class MediaStreamHandlers {
-
     /// このプロパティは onSwitchVideo に置き換えられました。
     @available(*, deprecated, renamed: "onSwitchVideo",
-    message: "このプロパティは onSwitchVideo に置き換えられました。")
+               message: "このプロパティは onSwitchVideo に置き換えられました。")
     public var onSwitchVideoHandler: ((_ isEnabled: Bool) -> Void)? {
         get { onSwitchVideo }
         set { onSwitchVideo = newValue }
@@ -27,7 +24,7 @@ public final class MediaStreamHandlers {
 
     /// このプロパティは onSwitchAudio に置き換えられました。
     @available(*, deprecated, renamed: "onSwitchAudio",
-    message: "このプロパティは onSwitchAudio に置き換えられました。")
+               message: "このプロパティは onSwitchAudio に置き換えられました。")
     public var onSwitchAudioHandler: ((_ isEnabled: Bool) -> Void)? {
         get { onSwitchAudio }
         set { onSwitchAudio = newValue }
@@ -41,19 +38,17 @@ public final class MediaStreamHandlers {
 
     /// 初期化します。
     public init() {}
-
 }
 
 /**
  メディアストリームの機能を定義したプロトコルです。
  デフォルトの実装は非公開 (`internal`) であり、カスタマイズはイベントハンドラでのみ可能です。
  ソースコードは公開していますので、実装の詳細はそちらを参照してください。
- 
+
  メディアストリームは映像と音声の送受信を行います。
  メディアストリーム 1 つにつき、 1 つの映像と 1 つの音声を送受信可能です。
  */
 public protocol MediaStream: AnyObject {
-
     // MARK: - イベントハンドラ
 
     /// イベントハンドラ
@@ -66,6 +61,9 @@ public protocol MediaStream: AnyObject {
 
     /// 接続開始時刻
     var creationTime: Date { get }
+
+    /// メディアチャンネル
+    var mediaChannel: MediaChannel? { get }
 
     // MARK: - 映像と音声の可否
 
@@ -80,7 +78,7 @@ public protocol MediaStream: AnyObject {
      音声の可否。
      ``false`` をセットすると、サーバーへの音声の送受信を停止します。
      ``true`` をセットすると送受信を再開します。
-     
+
      サーバーへの送受信を停止しても、マイクはミュートされませんので注意してください。
      */
     var audioEnabled: Bool { get set }
@@ -104,7 +102,7 @@ public protocol MediaStream: AnyObject {
      送信される映像フレームは映像フィルターを通して加工されます。
      映像レンダラーがセットされていれば、加工後の映像フレームが
      映像レンダラーによって描画されます。
-     
+
      - parameter videoFrame: 描画する映像フレーム。
                              `nil` を指定すると空の映像フレームを送信します。
      */
@@ -114,19 +112,17 @@ public protocol MediaStream: AnyObject {
      音声をサーバに送信します
     */
     func sendAudio(_ buffer: CMSampleBuffer?)
-
+  
     // MARK: 終了処理
 
     /**
      ストリームの終了処理を行います。
      */
     func terminate()
-
 }
 
 class BasicMediaStream: MediaStream {
-
-    let handlers: MediaStreamHandlers = MediaStreamHandlers()
+    let handlers = MediaStreamHandlers()
 
     var peerChannel: PeerChannel
 
@@ -135,11 +131,18 @@ class BasicMediaStream: MediaStream {
     var audioTrackId: String = ""
     var creationTime: Date
 
+    var mediaChannel: MediaChannel? {
+        // MediaChannel は必ず存在するが、 MediaChannel と PeerChannel の循環参照を避けるために、 PeerChannel は MediaChannel を弱参照で保持している
+        // mediaChannel を force unwrapping することも検討したが、エラーによる切断処理中なども安全である確信が持てなかったため、
+        // SDK 側で force unwrapping することは避ける
+        peerChannel.mediaChannel
+    }
+
     var videoFilter: VideoFilter?
 
     var videoRenderer: VideoRenderer? {
         get {
-            return videoRendererAdapter?.videoRenderer
+            videoRendererAdapter?.videoRenderer
         }
         set {
             if let value = newValue {
@@ -176,20 +179,20 @@ class BasicMediaStream: MediaStream {
     var nativeStream: RTCMediaStream
 
     var nativeVideoTrack: RTCVideoTrack? {
-        return nativeStream.videoTracks.first
+        nativeStream.videoTracks.first
     }
 
     var nativeVideoSource: RTCVideoSource? {
-        return nativeVideoTrack?.source
+        nativeVideoTrack?.source
     }
 
     var nativeAudioTrack: RTCAudioTrack? {
-        return nativeStream.audioTracks.first
+        nativeStream.audioTracks.first
     }
 
     var videoEnabled: Bool {
         get {
-            return nativeVideoTrack?.isEnabled ?? false
+            nativeVideoTrack?.isEnabled ?? false
         }
         set {
             guard videoEnabled != newValue else {
@@ -205,7 +208,7 @@ class BasicMediaStream: MediaStream {
 
     var audioEnabled: Bool {
         get {
-            return nativeAudioTrack?.isEnabled ?? false
+            nativeAudioTrack?.isEnabled ?? false
         }
         set {
             guard audioEnabled != newValue else {
@@ -221,7 +224,7 @@ class BasicMediaStream: MediaStream {
 
     var remoteAudioVolume: Double? {
         get {
-            return nativeAudioTrack?.source.volume
+            nativeAudioTrack?.source.volume
         }
         set {
             guard let newValue = newValue else {
@@ -252,21 +255,19 @@ class BasicMediaStream: MediaStream {
         videoRendererAdapter?.videoRenderer?.onDisconnect(from: peerChannel.mediaChannel ?? nil)
     }
 
-    private static let dummyCapturer: RTCVideoCapturer = RTCVideoCapturer()
+    private static let dummyCapturer = RTCVideoCapturer()
     func send(videoFrame: VideoFrame?) {
         if let frame = videoFrame {
             // フィルターを通す
             let frame = videoFilter?.filter(videoFrame: frame) ?? frame
             switch frame {
-            case .native(capturer: let capturer, frame: let nativeFrame):
+            case let .native(capturer: capturer, frame: nativeFrame):
                 // RTCVideoSource.capturer(_:didCapture:) の最初の引数は
                 // 現在使われてないのでダミーでも可？ -> ダミーにしました
                 nativeVideoSource?.capturer(capturer ?? BasicMediaStream.dummyCapturer,
                                             didCapture: nativeFrame)
             }
-        } else {
-
-        }
+        } else {}
     }
 
   func sendAudio(_ buffer: CMSampleBuffer?) {

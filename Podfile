@@ -1,12 +1,9 @@
 source 'https://github.com/soudegesu/sora-ios-sdk-specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '12.1'
+platform :ios, '13.0'
 
 target 'Sora' do
   use_frameworks!
-  pod 'WebRTC', '97.4692.4.0.1'
-  pod 'Starscream', '3.1.1'
-  pod 'SwiftLint'
-  pod 'SwiftFormat/CLI'
+  pod 'WebRTC', '98.4758.0.0.1'
 end
