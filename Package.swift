@@ -3,7 +3,7 @@
 import Foundation
 import PackageDescription
 
-let file = "WebRTC-98.4758.0.0.1/WebRTC.xcframework.zip"
+let file = "WebRTC-99.4844.1.0.1/WebRTC.xcframework.zip"
 
 let package = Package(
     name: "Sora",
@@ -16,7 +16,7 @@ let package = Package(
         .binaryTarget(
             name: "WebRTC",
             url: "https://github.com/soudegesu/sora-ios-sdk-specs/releases/download/\(file)",
-            checksum: "70d629675279887f3833d08f414d73a156183dd41751519557961512f7eae2e0"
+            checksum: "80d74e2c66818b37d093f928cc17622826e0dbee0113ecbf85fbd4a75e50129f"
         ),
         .target(
             name: "Sora",
