@@ -5,5 +5,5 @@ platform :ios, '13.0'
 
 target 'Sora' do
   use_frameworks!
-  pod 'WebRTC', '99.4844.1.0.1'
+  pod 'WebRTC', '100.4896.1.2.1'
 end
